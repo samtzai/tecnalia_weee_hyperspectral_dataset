@@ -1,0 +1,83 @@
+random_seed: 42
+experiment_name: spectral_76_bands
+accelerator:
+  torch_accelerator: gpu
+  torch_devices: [0]
+  dataloader_cpu_workers: 6
+  dataloader_pin_memory: false
+  load_all_data_in_memory: true
+dataset:
+  train_files:
+      # # - dataset/data/Fast10_Steel_Al_061018_13ms_284_1128_02.mat # Probably errors in normalization
+      - dataset/data/Fast10_Steel_Al_061018_13ms_300_1132_01.mat
+      - dataset/data/Fast10_Steel_Al_061024_13ms_refl_228_1240_01.mat
+      - dataset/data/Fast10_Steel_Al_061024_13ms_refl_256_1252_02.mat
+      # - dataset/data/Fast10_Steel_Al_061024_13ms_refl_292_1228_00.mat
+      - dataset/data/Cu_Brass_Al_10ms_360_1704_01.mat 
+      - dataset/data/White_Cu_Al_Brass_25ms_19fps_OL_318_616_01.mat 
+      - dataset/data/061025_Steel_Cu_Al_Steel_Brass_25ms_20fps_288_720_01.mat 
+      # - dataset/data/White_Cu_Al_Brass_25ms_19fps_OL_378_610_00.mat 
+      - dataset/data/Cu_Brass_Al_10ms_412_1704_00.mat
+      - dataset/data/Cu_Brass_Al_MIXED_10ms_normalized_452_1404_01.mat
+      # - dataset/data/Cu_Brass_Al_MIXED_10ms_normalized_492_1392_00.mat
+  val_files:
+      # # - dataset/data/Fast10_Steel_Al_061018_13ms_284_1128_02.mat # Probably errors in normalization
+      # - dataset/data/Fast10_Steel_Al_061018_13ms_300_1132_01.mat
+      # - dataset/data/Fast10_Steel_Al_061024_13ms_refl_228_1240_01.mat
+      # - dataset/data/Fast10_Steel_Al_061024_13ms_refl_256_1252_02.mat
+      - dataset/data/Fast10_Steel_Al_061024_13ms_refl_292_1228_00.mat
+      # - dataset/data/Cu_Brass_Al_10ms_360_1704_01.mat 
+      # - dataset/data/White_Cu_Al_Brass_25ms_19fps_OL_318_616_01.mat 
+      # - dataset/data/061025_Steel_Cu_Al_Steel_Brass_25ms_20fps_288_720_01.mat 
+      - dataset/data/White_Cu_Al_Brass_25ms_19fps_OL_378_610_00.mat 
+      # - dataset/data/Cu_Brass_Al_10ms_412_1704_00.mat
+      # - dataset/data/Cu_Brass_Al_MIXED_10ms_normalized_452_1404_01.mat
+      - dataset/data/Cu_Brass_Al_MIXED_10ms_normalized_492_1392_00.mat
+  test_files:
+      # # - dataset/data/Fast10_Steel_Al_061018_13ms_284_1128_02.mat # Probably errors in normalization
+      # - dataset/data/Fast10_Steel_Al_061018_13ms_300_1132_01.mat
+      # - dataset/data/Fast10_Steel_Al_061024_13ms_refl_228_1240_01.mat
+      # - dataset/data/Fast10_Steel_Al_061024_13ms_refl_256_1252_02.mat
+      - dataset/data/Fast10_Steel_Al_061024_13ms_refl_292_1228_00.mat
+      # - dataset/data/Cu_Brass_Al_10ms_360_1704_01.mat 
+      # - dataset/data/White_Cu_Al_Brass_25ms_19fps_OL_318_616_01.mat 
+      # - dataset/data/061025_Steel_Cu_Al_Steel_Brass_25ms_20fps_288_720_01.mat 
+      - dataset/data/White_Cu_Al_Brass_25ms_19fps_OL_378_610_00.mat 
+      # - dataset/data/Cu_Brass_Al_10ms_412_1704_00.mat
+      # - dataset/data/Cu_Brass_Al_MIXED_10ms_normalized_452_1404_01.mat
+      - dataset/data/Cu_Brass_Al_MIXED_10ms_normalized_492_1392_00.mat
+  classes:
+    - Background: 0
+    - Copper: 1
+    - Brass: 2
+    - Aluminum: 3
+    # - Lead: 4  [NOT PRESENT]
+    - Stainless Steel: 5
+    - White_Copper: 6
+model:
+  model_type: spectral # 'spectral' (for only 1d encoder_decoder).'encoderdecoder' (for encoder decoder architecture) 'unet' (for unet)
+  tile_size: 128
+  use_only_target_bands: false
+  # target_bands: [6, 15, 27]
+  target_bands: [10,20,30,40,50,60,70]
+  activation: softmax #Last activation, softmax (output sum to 1) or sigmoid (each output value between 0 and 1)
+  num_channels: 76 #76
+
+
+  timm_backbone_name: 'vit_small_patch14_reg4_dinov2'
+  additional_decoder_layer_neurons: 0
+  weights: #Use pretrained weights for dino
+train:
+  loss_function: weightedcategoricalcrossentropy 
+  loss_weight_calculation: invert_abundances
+  loss_weight_calculation_draws: 20
+  optimizer: adamw
+  learning_rate: 0.00005
+  batch_size: 16
+  epochs: 2
+  finetune_epochs: 2000
+  num_image_draws_per_epoch: 100
+  early_stopping: false
+  restore_best_weights: true
+  resume_training: true
+  

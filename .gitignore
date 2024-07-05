@@ -1,0 +1,10 @@
+/dataset
+dataset.zip
+/env
+jisap-cli.log
+*.pyc
+*.ckpt
+/outputs/**/train
+/outputs/**/evaluate
+/outputs
+/*.out

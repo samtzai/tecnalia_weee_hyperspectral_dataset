@@ -1,0 +1,11 @@
+dvc
+torch
+pytorch_lightning
+opencv-python
+pandas
+scikit-learn
+scikit-image
+timm
+matplotlib
+seaborn
+albumentations
