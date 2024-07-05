@@ -1,8 +1,12 @@
 random_seed: 42
 experiment_name: dummy
 accelerator:
-  torch_accelerator: gpu
-  torch_devices: [0]
+  #CPU
+  torch_accelerator: cpu
+  torch_devices: 1 
+  #GPU
+  # torch_accelerator: cuda
+  # torch_devices: [0] 
   dataloader_cpu_workers: 6
   dataloader_pin_memory: false
   load_all_data_in_memory: true
