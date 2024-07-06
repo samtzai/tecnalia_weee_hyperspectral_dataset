@@ -3,7 +3,7 @@ experiment_name: dummy
 accelerator:
   #CPU
   torch_accelerator: cpu
-  torch_devices: 1 
+  torch_devices: 3
   #GPU
   # torch_accelerator: cuda
   # torch_devices: [0] 
