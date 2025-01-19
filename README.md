@@ -17,11 +17,13 @@ This work is based on the following publication:
 Please, cite it as:
 
 ```bibtex
-@article{picon2024hyperspectral,
-  title={Hyperspectral Dataset and Deep Learning methods for Waste from Electric and Electronic Equipment Identification (WEEE)},
-  author={Artzai Picon and Pablo Galan and Arantza Bereciartua-Perez and Leire Benito-del-Valle},
-  journal={arXiv preprint},
-  year={2024}
+@article{picon2024analysis,
+  title={On the analysis of adapting deep learning methods to hyperspectral imaging. Use case for WEEE recycling and dataset},
+  author={Picon, Artzai and Galan, Pablo and Bereciartua-Perez, Arantza and Benito-del-Valle, Leire},
+  journal={Spectrochimica Acta Part A: Molecular and Biomolecular Spectroscopy},
+  pages={125665},
+  year={2024},
+  publisher={Elsevier}
 }
 ```
 
